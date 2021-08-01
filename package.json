@@ -1,9 +1,10 @@
 {
   "name": "@uniswap/interface",
   "description": "Uniswap Interface",
-  "homepage": ".",
+  "homepage": "http://beykery.github.io/uniswap-interface-v3",
   "private": true,
   "devDependencies": {
+    "gh-pages": "^3.1.0",
     "@ethersproject/experimental": "^5.4.0",
     "@gnosis.pm/safe-apps-web3-react": "^0.6.0",
     "@graphql-codegen/cli": "1.21.5",
@@ -127,6 +128,7 @@
     "@walletconnect/web3-provider": "1.5.1"
   },
   "scripts": {
+    "deploy": "gh-pages -d build",
     "compile-contract-types": "yarn compile-external-abi-types && yarn compile-v3-contract-types",
     "compile-external-abi-types": "typechain --target ethers-v5 --out-dir src/abis/types './src/abis/**/*.json'",
     "compile-v3-contract-types": "typechain --target ethers-v5 --out-dir src/types/v3 './node_modules/@uniswap/?(v3-core|v3-periphery)/artifacts/contracts/**/*.json'",
@@ -159,5 +161,7 @@
     ]
   },
   "license": "GPL-3.0-or-later",
-  "dependencies": {}
+  "dependencies": {
+    "gh-pages": "^3.1.0"
+  }
 }
