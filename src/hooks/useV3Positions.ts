@@ -1,8 +1,9 @@
-import { useSingleCallResult, useSingleContractMultipleData, Result } from 'state/multicall/hooks'
-import { useMemo } from 'react'
-import { PositionDetails } from 'types/position'
-import { useV3NFTPositionManagerContract } from './useContract'
 import { BigNumber } from '@ethersproject/bignumber'
+import { useMemo } from 'react'
+import { CallStateResult, useSingleCallResult, useSingleContractMultipleData } from 'state/multicall/hooks'
+import { PositionDetails } from 'types/position'
+
+import { useV3NFTPositionManagerContract } from './useContract'
 
 interface UseV3PositionsResults {
   loading: boolean
@@ -21,7 +22,7 @@ function useV3PositionsFromTokenIds(tokenIds: BigNumber[] | undefined): UseV3Pos
     if (!loading && !error && tokenIds) {
       return results.map((call, i) => {
         const tokenId = tokenIds[i]
-        const result = call.result as Result
+        const result = call.result as CallStateResult
         return {
           tokenId,
           fee: result.fee,
@@ -89,7 +90,7 @@ export function useV3Positions(account: string | null | undefined): UseV3Positio
     if (account) {
       return tokenIdResults
         .map(({ result }) => result)
-        .filter((result): result is Result => !!result)
+        .filter((result): result is CallStateResult => !!result)
         .map((result) => BigNumber.from(result[0]))
     }
     return []
